@@ -10,19 +10,33 @@ namespace Blog.DAL.Concrete.Repositories
 {
     public class ArticleImageRepository : IArticleImageRepository
     {
+        private readonly BlogDBContext context;
+        public ArticleImageRepository(BlogDBContext _context)
+        {
+            context = _context;
+        }
+
         public int CreateArticleImage(ArticleImage entity)
         {
-            throw new NotImplementedException();
+            context.ArticleImages.Add(entity);
+            return context.SaveChanges();
         }
 
         public int DeleteArticleImage(int id)
         {
-            throw new NotImplementedException();
+            ArticleImage articleImage = context.ArticleImages.FirstOrDefault(x=>x.ArticleImageID==id);
+            if (articleImage!=null)
+            {
+                context.ArticleImages.Remove(articleImage);
+                return context.SaveChanges();
+            }
+            return 0;
         }
 
-        public int UpdateArticleImage(ArticleImage entity, int id)
+        public int UpdateArticleImage(ArticleImage entity)
         {
-            throw new NotImplementedException();
+            context.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            return context.SaveChanges();
         }
     }
 }

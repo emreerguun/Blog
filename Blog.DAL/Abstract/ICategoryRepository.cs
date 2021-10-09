@@ -10,7 +10,7 @@ namespace Blog.DAL.Abstract
     public interface ICategoryRepository
     {
         int CreateCategory(Category entity);
-        int UpdateCategory(Category entity,int id);
+        int UpdateCategory(Category entity);
         int DeleteCategory(int id);
         List<Category> GetAllCategories();
     }

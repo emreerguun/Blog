@@ -10,24 +10,37 @@ namespace Blog.DAL.Concrete.Repositories
 {
     public class CategoryRepository : ICategoryRepository
     {
+        private readonly BlogDBContext context;
+        public CategoryRepository(BlogDBContext _context)
+        {
+            context = _context;
+        }
         public int CreateCategory(Category entity)
         {
-            throw new NotImplementedException();
+            context.Categories.Add(entity);
+            return context.SaveChanges();
         }
 
         public int DeleteCategory(int id)
         {
-            throw new NotImplementedException();
+            Category category = context.Categories.FirstOrDefault(x=>x.CategoryID==id);
+            if (category!=null)
+            {
+                context.Categories.Remove(category);
+                return context.SaveChanges();
+            }
+            return 0;
         }
 
         public List<Category> GetAllCategories()
         {
-            throw new NotImplementedException();
+            return context.Categories.ToList();
         }
 
-        public int UpdateCategory(Category entity, int id)
+        public int UpdateCategory(Category entity)
         {
-            throw new NotImplementedException();
+            context.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            return context.SaveChanges();
         }
     }
 }

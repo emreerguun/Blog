@@ -10,29 +10,42 @@ namespace Blog.DAL.Concrete.Repositories
 {
     public class ArticleRepository : IArticleRepository
     {
+        private readonly BlogDBContext context;
+        public ArticleRepository(BlogDBContext _context)
+        {
+            context = _context;
+        }
         public int CreateArticle(Article entity)
         {
-            throw new NotImplementedException();
+            context.Articles.Add(entity);
+            return context.SaveChanges();
         }
 
         public int DeleteArticle(int id)
         {
-            throw new NotImplementedException();
+            Article article = context.Articles.FirstOrDefault(x=>x.ArticleID==id);
+            if (article!=null)
+            {
+                context.Articles.Remove(article);
+                return context.SaveChanges();
+            }
+            return 0;
         }
 
         public List<Article> GetAllArticles()
         {
-            throw new NotImplementedException();
+            return context.Articles.ToList();
         }
 
         public List<Article> GetArticlesByNumberOfClick()
         {
-            throw new NotImplementedException();
+            return context.Articles.OrderByDescending(x => x.NumberOfClick).ToList();
         }
 
-        public int UpdateArticle(Article entity, int id)
+        public int UpdateArticle(Article entity)
         {
-            throw new NotImplementedException();
+            context.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            return context.SaveChanges();
         }
     }
 }

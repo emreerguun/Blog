@@ -14,14 +14,15 @@ namespace Blog.Entities.Entities
             Articles = new HashSet<Article>();
         }
         public int UserID { get; set; }
-        [Required(ErrorMessage ="Adınızı Giriniz"),MinLength(2)]
+        [Required(ErrorMessage = "Adınızı Giriniz"), MinLength(2)]
         public string Name { get; set; }
-        [Required(ErrorMessage ="Soyadınızı Giriniz"),MinLength(2)]
+        [Required(ErrorMessage = "Soyadınızı Giriniz"), MinLength(2)]
         public string Surname { get; set; }
-        [Required(ErrorMessage ="Kullanıcı Adınızı Giriniz"), MinLength(4)]
+        [Required(ErrorMessage = "Kullanıcı Adınızı Giriniz"), MinLength(4)]
         public string UserName { get; set; }
-        [Required,MinLength(6), MaxLength(10)]
+        [Required, MinLength(6), MaxLength(10)]
         public string Password { get; set; }
+        public int UserRole { get; set; }
 
         public virtual ICollection<Article> Articles { get; set; }
     }

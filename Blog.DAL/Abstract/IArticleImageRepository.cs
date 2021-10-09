@@ -10,7 +10,7 @@ namespace Blog.DAL.Abstract
     public interface IArticleImageRepository
     {
         int CreateArticleImage(ArticleImage entity);
-        int UpdateArticleImage(ArticleImage entity,int id);
+        int UpdateArticleImage(ArticleImage entity);
         int DeleteArticleImage(int id);
     }
 }

@@ -9,9 +9,9 @@ namespace Blog.DAL.Abstract
 {
     public interface IUserRepository
     {
-        int Login(string username,string password);
         int Register(User entity);
-        List<User> GetAllUsers();
+        User GetUserByUserName(string username);
+        List<User> GetAllUser();
         
     }
 }

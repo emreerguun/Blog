@@ -10,19 +10,26 @@ namespace Blog.DAL.Concrete.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        public List<User> GetAllUsers()
+        private readonly BlogDBContext context;
+        public UserRepository(BlogDBContext _context)
         {
-            throw new NotImplementedException();
+            context = _context;
         }
 
-        public int Login(string username, string password)
+        public List<User> GetAllUser()
         {
-            throw new NotImplementedException();
+            return context.Users.ToList();
+        }
+
+        public User GetUserByUserName(string username)
+        {
+            return context.Users.FirstOrDefault(x => x.UserName == username);
         }
 
         public int Register(User entity)
         {
-            throw new NotImplementedException();
+            context.Users.Add(entity);
+            return context.SaveChanges();
         }
     }
 }
