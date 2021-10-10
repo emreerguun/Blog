@@ -1,4 +1,5 @@
 ﻿using Blog.BLL.Abstract;
+using Blog.BLL.DTO;
 using Blog.DAL.Abstract;
 using Blog.Entities.Entities;
 using System;
@@ -16,22 +17,31 @@ namespace Blog.BLL.Concrete
         {
             repository = _repository;
         }
-        public List<User> GetAllUser()
+        public List<UserDTO> GetAllUser()
         {
-            return repository.GetAllUser();
+            List<User> allUser = repository.GetAllUser();
+            List<UserDTO> users = new List<UserDTO>();
+            foreach (var user in allUser)
+            {
+                users.Add(new UserDTO() { Name=user.Name, Surname=user.Surname, UserName=user.UserName });
+            }
+            return users;
         }
 
-        public User GetUserByUserName(string username)
+        public UserDTO GetUserByUserName(string username)
         {
-            return repository.GetUserByUserName(username);
+            User user=repository.GetUserByUserName(username);
+            UserDTO userDto = new UserDTO() { Name=user.Name, Surname=user.Surname, UserName=user.UserName };
+            return userDto;
         }
 
-        public int Register(User entity)
+        public int Register(UserDTO entity)
         {
-            User user = GetUserByUserName(entity.UserName);
+            User user = new User() {  Name=entity.Name, Surname=entity.Surname,UserName=entity.UserName, Password=entity.Password };
             if (user == null)
             {
-                return repository.Register(entity);
+                user.UserRole = 2;
+                return repository.Register(user);
             }
             else
             {

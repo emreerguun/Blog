@@ -9,10 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Blog.BLL\Blog.BLL.csproj" />
     <ProjectReference Include="..\Blog.Entities\Blog.Entities.csproj" />
   </ItemGroup>

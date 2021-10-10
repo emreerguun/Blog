@@ -26,18 +26,18 @@ namespace Blog.WebUI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddRazorPages();
             services.AddTransient<IArticleRepository, ArticleRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
-            services.AddTransient<IArticleImageRepository,ArticleImageRepository>();
+            services.AddTransient<IArticleImageRepository, ArticleImageRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
-            services.AddRazorPages();
-            services.AddControllers();
-            services.AddDbContext<BlogDBContext>(x=>x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),b=>b.MigrationsAssembly("Blog.WebUI")));
+            services.AddDbContext<BlogDBContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("Blog.WebUI")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -45,8 +45,11 @@ namespace Blog.WebUI
             else
             {
                 app.UseExceptionHandler("/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
             }
 
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -55,8 +58,16 @@ namespace Blog.WebUI
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
-            });
+                endpoints.MapControllerRoute(
+                      name: "area",
+                      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapAreaControllerRoute(
+                   name: "default",
+                   areaName: "Blog",
+                   pattern: "{controller=Home}/{action=Index}/{id?}");
+
+        });
         }
     }
 }
