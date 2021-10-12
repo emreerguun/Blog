@@ -9,8 +9,9 @@ namespace Blog.BLL.Abstract
 {
     public interface IUserBLL
     {
-        int Register(UserDTO entity);
+        int Register(UserDTO dto);
         UserDTO GetUserByUserName(string username);
         List<UserDTO> GetAllUser();
+        UserDTO Login(UserDTO dto);
     }
 }

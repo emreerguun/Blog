@@ -1,0 +1,16 @@
+﻿@model IEnumerable<CategoryDTO>
+<div class="card mb-4">
+    <div class="card-header">Kategoriler</div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <ul class="list-unstyled mb-0">
+                    @foreach (var category in Model)
+                    {
+                        <li><a href="/Blog/Home/ArticlesByCategory?categoryID=@category.CategoryID">@category.Name</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

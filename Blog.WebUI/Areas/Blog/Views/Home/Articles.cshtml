@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Blog.BLL.DTO.ArticalDTO>
+
+@{
+    ViewData["Title"] = "Makaleler";
+    Layout = "~/Areas/Blog/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4">
+            @await Component.InvokeAsync("BlogCategories")
+        </div>
+        @foreach (var article in Model)
+        {
+            <div class="card mb-4 col-lg-4">
+                @if (article.ImagePath == null)
+                {
+                    <a href="/Blog/Home/Article?articleID=@article.ArticleID"><img class="card-img-top" src="~/Images/default-image.jpg" alt="..." width="750" height="350" /></a>
+                }
+                else
+                {
+                    <a href="/Blog/Home/Article?articleID=@article.ArticleID"><img class="card-img-top" src="~/Images/ArticalImages/@article.ImagePath" alt="..." width="750" height="350" /></a>
+                }
+                <div class="card-body">
+                    <div class="small text-muted">@article.CategoryName</div>
+                    <h2 class="card-title h4">@article.Title</h2>
+                    <p class="card-text">@article.Description</p>
+                    <a class="btn btn-primary" href="/Blog/Home/Article?articleID=@article.ArticleID">Devam Et →</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

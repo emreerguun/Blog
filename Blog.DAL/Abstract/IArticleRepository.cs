@@ -13,6 +13,10 @@ namespace Blog.DAL.Abstract
         int UpdateArticle(Article entity);
         int DeleteArticle(int id);
         List<Article> GetAllArticles();
+        List<Article> GetArticlesByUserID(int id);
+        List<Article> GetArticlesByCategoryID(int id);
+        List<Article> GetLast10Articles();
+        Article GetArticleByID(int id);
         List<Article> GetArticlesByNumberOfClick();
     }
 }

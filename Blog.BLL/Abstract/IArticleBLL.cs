@@ -1,4 +1,4 @@
-﻿using Blog.Entities.Entities;
+﻿using Blog.BLL.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +9,14 @@ namespace Blog.BLL.Abstract
 {
     public interface IArticleBLL
     {
-        int CreateArticle(Article entity);
-        int UpdateArticle(Article entity);
+        int CreateArticle(ArticalDTO entity);
+        int UpdateArticle(ArticalDTO entity);
         int DeleteArticle(int id);
-        List<Article> GetAllArticles();
-        List<Article> GetArticlesByNumberOfClick();
+        List<ArticalDTO> GetAllArticles();
+        List<ArticalDTO> GetArticlesByUserID(int id);
+        List<ArticalDTO> GetArticlesByCategoryID(int id);
+        List<ArticalDTO> GetLast10Articles();
+        ArticalDTO GetArticleByID(int id);
+        List<ArticalDTO> GetArticlesByNumberOfClick();
     }
 }

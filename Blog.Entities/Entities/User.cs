@@ -20,7 +20,7 @@ namespace Blog.Entities.Entities
         public string Surname { get; set; }
         [Required(ErrorMessage = "Kullanıcı Adınızı Giriniz"), MinLength(4)]
         public string UserName { get; set; }
-        [Required, MinLength(6), MaxLength(10)]
+        [Required, MinLength(6)]
         public string Password { get; set; }
         public int UserRole { get; set; }
 

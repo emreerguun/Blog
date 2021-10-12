@@ -1,0 +1,9 @@
+﻿@model IEnumerable<CategoryDTO>
+
+
+    @foreach (var category in Model)
+    {
+        <option value="@category.CategoryID">@category.Name</option>
+    }
+
+

@@ -21,13 +21,13 @@ namespace Blog.Entities.Entities
         [Required(ErrorMessage = "Makale İçeriği Giriniz")]
         public string Content { get; set; }
         public int NumberOfClick { get; set; }
+        public DateTime Date { get; set; }
+        public string ImagePath { get; set; }
 
         public int CategoryID { get; set; }
         public int UserID { get; set; }
-        public int ArticleImageID { get; set; }
 
         public virtual ICollection<Category> Categories { get; set; }
         public virtual User User { get; set; }
-        public virtual ArticleImage ArticleImage { get; set; }
     }
 }

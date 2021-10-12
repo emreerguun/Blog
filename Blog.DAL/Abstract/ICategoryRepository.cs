@@ -13,5 +13,6 @@ namespace Blog.DAL.Abstract
         int UpdateCategory(Category entity);
         int DeleteCategory(int id);
         List<Category> GetAllCategories();
+        Category GetCategoryByID(int id);
     }
 }

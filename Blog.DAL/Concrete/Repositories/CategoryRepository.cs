@@ -37,6 +37,11 @@ namespace Blog.DAL.Concrete.Repositories
             return context.Categories.ToList();
         }
 
+        public Category GetCategoryByID(int id)
+        {
+            return context.Categories.Where(x => x.CategoryID == id).FirstOrDefault();
+        }
+
         public int UpdateCategory(Category entity)
         {
             context.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;

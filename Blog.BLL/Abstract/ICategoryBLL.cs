@@ -1,5 +1,5 @@
-﻿using Blog.DAL.Abstract;
-using Blog.Entities.Entities;
+﻿using Blog.BLL.DTO;
+using Blog.DAL.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +10,10 @@ namespace Blog.BLL.Abstract
 {
     public interface ICategoryBLL
     {
-        int CreateCategory(Category entity);
-        int UpdateCategory(Category entity);
+        int CreateCategory(CategoryDTO entity);
+        int UpdateCategory(CategoryDTO entity);
         int DeleteCategory(int id);
-        List<Category> GetAllCategories();
+        List<CategoryDTO> GetAllCategories();
+        CategoryDTO GetCategoryByID(int id);
     }
 }

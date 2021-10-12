@@ -1,16 +1,15 @@
+using Blog.BLL.Abstract;
+using Blog.BLL.Concrete;
 using Blog.DAL.Abstract;
 using Blog.DAL.Concrete;
 using Blog.DAL.Concrete.Repositories;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Blog.WebUI
 {
@@ -22,22 +21,22 @@ namespace Blog.WebUI
         }
 
         public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
             services.AddTransient<IArticleRepository, ArticleRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
-            services.AddTransient<IArticleImageRepository, ArticleImageRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
-            services.AddDbContext<BlogDBContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("Blog.WebUI")));
-        }
+            services.AddTransient<IUserBLL, UserBLL>();
+            services.AddTransient<ICategoryBLL,CategoryBLL>();
+            services.AddTransient<IArticleBLL, ArticleBLL>();
+            services.AddDbContext<BlogDBContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("Blog.DAL")));
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            services.AddSession();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+        }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -45,14 +44,15 @@ namespace Blog.WebUI
             else
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseSession();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
@@ -67,7 +67,7 @@ namespace Blog.WebUI
                    areaName: "Blog",
                    pattern: "{controller=Home}/{action=Index}/{id?}");
 
-        });
+            });
         }
     }
 }

@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Blog.BLL.DTO.CategoryDTO>
+
+@{
+    ViewData["Title"] = "Kategori Listesi";
+    Layout = "~/Areas/Process/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Kategori Listesi</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               Kategori Adı
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <a class="btn btn-success btn-sm" asp-controller="Category" asp-action="UpdateCategory" asp-route-categoryID="@item.CategoryID">Düzenle</a>
+                <a class="btn btn-danger btn-sm" asp-controller="Category" asp-action="DeleteCategory" asp-route-categoryID="@item.CategoryID">Sil</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Blog.BLL.DTO.ArticalDTO>
+
+@{
+    ViewData["Title"] = "MyArticles";
+    Layout = "~/Areas/Process/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Makalelerim</h1>
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                Kapak Resmi
+            </th>
+            <th>
+                Başlık
+            </th>
+            <th>
+                Açıklama
+            </th>
+            <th>
+                İçerik
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @if (item.ImagePath == null)
+                    {
+                        <img alt="lütfen resim ekleyin" src="~/Images/default-image.jpg" width="150"/>
+                        <span class="text-danger"></span>
+                    }
+                    else
+                    {
+                        <img alt="lütfen resim ekleyin" src="~/Images/ArticalImages/@item.ImagePath" width="150" />
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Content)
+                </td>
+                <td>
+                    <a class="btn btn-success btn-sm" asp-controller="Article" asp-action="UpdateArticle" asp-route-articleID="@item.ArticleID">Düzenle</a>
+                    <a class="btn btn-danger btn-sm" asp-controller="Article" asp-action="DeleteArticle" asp-route-articleID="@item.ArticleID">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

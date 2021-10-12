@@ -17,6 +17,7 @@ namespace Blog.DAL.Concrete.Repositories
         }
         public int CreateArticle(Article entity)
         {
+            entity.Date = DateTime.Now;
             context.Articles.Add(entity);
             return context.SaveChanges();
         }
@@ -37,9 +38,29 @@ namespace Blog.DAL.Concrete.Repositories
             return context.Articles.ToList();
         }
 
+        public Article GetArticleByID(int id)
+        {
+            return context.Articles.Where(x => x.ArticleID == id).FirstOrDefault();
+        }
+
+        public List<Article> GetArticlesByCategoryID(int id)
+        {
+            return context.Articles.Where(x=>x.CategoryID==id).ToList();
+        }
+
         public List<Article> GetArticlesByNumberOfClick()
         {
             return context.Articles.OrderByDescending(x => x.NumberOfClick).ToList();
+        }
+
+        public List<Article> GetArticlesByUserID(int id)
+        {
+            return context.Articles.Where(x=>x.UserID==id).ToList();
+        }
+
+        public List<Article> GetLast10Articles()
+        {
+            return context.Articles.OrderByDescending(x => x.Date).Take(10).ToList();
         }
 
         public int UpdateArticle(Article entity)

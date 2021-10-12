@@ -1,0 +1,27 @@
+﻿@model Blog.BLL.DTO.ArticalDTO
+
+@{
+    ViewData["Title"] = "Article";
+    Layout = "~/Areas/Blog/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+            <div class="card col-lg-8 mb-4">
+                @if (Model.ImagePath == null)
+                {
+                    <a href="#!"><img class="card-img-top" src="~/Images/default-image.jpg" alt="..." width="1500" height="700" /></a>
+                }
+                else
+                {
+                    <a href="#!"><img class="card-img-top" src="~/Images/ArticalImages/@Model.ImagePath" alt="..." width="750" height="350" /></a>
+                }
+            <div class="card-body">
+                <div class="small text-muted">@Model.CategoryName</div>
+                <h2 class="card-title h4">@Model.Title</h2>
+                <p class="card-text mb-4">@Model.Description</p>
+                <p class="card-text">@Model.Content</p>
+            </div>
+            </div>
+    </div>
+</div>
