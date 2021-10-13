@@ -5,6 +5,7 @@ using Blog.Entities.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -37,6 +38,8 @@ namespace Blog.BLL.Concrete
 
         public UserDTO Login(UserDTO dto)
         {
+            string pass = MD5_Encrypt(dto.Password);
+            dto.Password = pass;
             User user = repository.GetUserByUserName(dto.UserName);
             if (user != null)
             {
@@ -55,6 +58,8 @@ namespace Blog.BLL.Concrete
         public int Register(UserDTO entity)
         {
             User user = new User() { Name = entity.Name, Surname = entity.Surname, UserName = entity.UserName, Password = entity.Password };
+            string pass = MD5_Dencrypt(entity.Password);
+            user.Password = pass;
             if (user != null)
             {
                 user.UserRole = 1;
@@ -64,6 +69,34 @@ namespace Blog.BLL.Concrete
             {
                 return 0;
             }
+        }
+
+        public static string MD5_Encrypt(string str)
+        {
+            string output = string.Empty;
+            using (MD5 md5 = MD5.Create())
+            {
+                byte[] md5_in = Encoding.UTF8.GetBytes(str);
+                byte[] md5_out = md5.ComputeHash(md5_in);
+
+                output = BitConverter.ToString(md5_out).ToLower();
+                output = output.Replace("-", "");
+            }
+            return output;
+        }
+
+        public static string MD5_Dencrypt(string str)
+        {
+            MD5 md5 = new MD5CryptoServiceProvider();
+            byte[] fromData = Encoding.UTF8.GetBytes(str);
+            byte[] targetData = md5.ComputeHash(fromData);
+            string byte2String = null;
+
+            for (int i = 0; i < targetData.Length; i++)
+            {
+                byte2String += targetData[i].ToString("x2");
+            }
+            return byte2String;
         }
     }
 }

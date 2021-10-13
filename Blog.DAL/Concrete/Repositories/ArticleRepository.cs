@@ -65,6 +65,7 @@ namespace Blog.DAL.Concrete.Repositories
 
         public int UpdateArticle(Article entity)
         {
+            entity.Date = DateTime.Now;
             context.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             return context.SaveChanges();
         }

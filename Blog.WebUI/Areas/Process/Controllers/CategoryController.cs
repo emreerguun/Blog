@@ -12,9 +12,11 @@ namespace Blog.WebUI.Areas.Process.Controllers
     public class CategoryController : Controller
     {
         ICategoryBLL categoryBLL;
-        public CategoryController(ICategoryBLL _categoryBLL)
+        IArticleBLL articleBLL;
+        public CategoryController(ICategoryBLL _categoryBLL, IArticleBLL _articleBLL)
         {
             categoryBLL = _categoryBLL;
+            articleBLL = _articleBLL;
         }
         public IActionResult CategoryList()
         {
@@ -60,11 +62,16 @@ namespace Blog.WebUI.Areas.Process.Controllers
 
         public void DeleteCategory(int categoryID)
         {
-            int result=categoryBLL.DeleteCategory(categoryID);
-            if (result==1)
+            List<ArticalDTO> articles=articleBLL.GetArticlesByCategoryID(categoryID);
+            if (articles.Count==0)
             {
-                Response.Redirect("/Process/Category/CategoryList");
+                categoryBLL.DeleteCategory(categoryID);
             }
+            else
+            {
+                ViewBag.Error = "Bu Kategori'nin Makaleleri Mevcut Olduğu İçin Silinemez. Kategoriyi Sadece Düzenleyebilirsiniz.";
+            }
+            Response.Redirect("/Process/Category/CategoryList");
         }
     }
 }

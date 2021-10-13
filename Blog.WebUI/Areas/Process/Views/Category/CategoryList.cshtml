@@ -6,6 +6,10 @@
 }
 
 <h1>Kategori Listesi</h1>
+@if (ViewBag.Error!=null)
+{
+    <p style="background-color:red;">@ViewBag.Error</p>
+}
 <table class="table">
     <thead>
         <tr>

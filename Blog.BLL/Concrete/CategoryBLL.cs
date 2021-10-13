@@ -23,7 +23,7 @@ namespace Blog.BLL.Concrete
         }
 
         public int DeleteCategory(int id)
-        {
+        {   
             return repository.DeleteCategory(id);
         }
 
