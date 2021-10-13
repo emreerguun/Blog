@@ -18,7 +18,7 @@ namespace Blog.WebUI.Areas.Blog.ViewComponents
         }
         public IViewComponentResult Invoke()
         {
-            List<CategoryDTO> categories = new List<CategoryDTO>();
+            List<CategoryDTO> categories;
             categories = categoryBLL.GetAllCategories();
             return View("Index", categories);
         }

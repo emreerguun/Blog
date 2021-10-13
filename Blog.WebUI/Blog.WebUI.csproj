@@ -22,8 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Process\Models\" />
-    <Folder Include="Areas\Blog\Models\" />
     <Folder Include="wwwroot\Blog\assets\" />
     <Folder Include="wwwroot\Images\ArticalImages\" />
   </ItemGroup>

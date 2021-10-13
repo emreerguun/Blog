@@ -50,7 +50,7 @@ namespace Blog.DAL.Concrete.Repositories
 
         public List<Article> GetArticlesByNumberOfClick()
         {
-            return context.Articles.OrderByDescending(x => x.NumberOfClick).ToList();
+            return context.Articles.OrderByDescending(x => x.NumberOfClick).Take(10).ToList();
         }
 
         public List<Article> GetArticlesByUserID(int id)
@@ -66,6 +66,12 @@ namespace Blog.DAL.Concrete.Repositories
         public int UpdateArticle(Article entity)
         {
             context.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            return context.SaveChanges();
+        }
+
+        public int UpNumberOfClick(Article entity)
+        {
+            entity.NumberOfClick++;
             return context.SaveChanges();
         }
     }

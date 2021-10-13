@@ -24,6 +24,7 @@ namespace Blog.BLL.DTO
         public string CategoryName { get; set; }
         public int CategoryID { get; set; }
         public int UserID { get; set; }
+        public DateTime Date { get; set; }
 
     }
 }

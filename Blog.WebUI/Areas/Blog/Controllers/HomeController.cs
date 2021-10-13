@@ -28,6 +28,7 @@ namespace Blog.WebUI.Areas.Blog.Controllers
         [HttpGet]
         public IActionResult Article(int articleID)
         {
+            UpArticleNumberOfClick(articleID);
             return View(articleBLL.GetArticleByID(articleID));
         }
         [HttpGet]
@@ -41,5 +42,17 @@ namespace Blog.WebUI.Areas.Blog.Controllers
         {
             return View(articleBLL.GetLast10Articles());
         }
+
+        [HttpGet]
+        public IActionResult Top10Articles()
+        {
+            return View(articleBLL.GetArticlesByNumberOfClick());
+        }
+
+        public void UpArticleNumberOfClick(int articleID)
+        {
+            articleBLL.UpNumberOfClick(articleID);
+        }
+
     }
 }

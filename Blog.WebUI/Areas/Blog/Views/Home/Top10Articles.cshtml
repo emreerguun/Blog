@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Blog.BLL.DTO.ArticalDTO>
 
 @{
-    ViewData["Title"] = "En Yeni 10 Makale";
+    ViewData["Title"] = "En Çok Tıklanan Makaleler";
     Layout = "~/Areas/Blog/Views/Shared/_Layout.cshtml";
 }
 
@@ -22,7 +22,7 @@
                     <a href="/Blog/Home/Article?articleID=@article.ArticleID"><img class="card-img-top" src="~/Images/ArticalImages/@article.ImagePath" alt="..." width="750" height="350" /></a>
                 }
                 <div class="card-body">
-                    <div class="small text-muted">@article.CategoryName - @article.Date</div>
+                    <div class="small text-muted">@article.CategoryName - @article.NumberOfClick Tıklama</div>
                     <h2 class="card-title h4">@article.Title</h2>
                     <p class="card-text">@article.Description</p>
                     <a class="btn btn-primary" href="/Blog/Home/Article?articleID=@article.ArticleID">Devam Et →</a>

@@ -17,6 +17,7 @@ namespace Blog.BLL.Abstract
         List<ArticalDTO> GetArticlesByCategoryID(int id);
         List<ArticalDTO> GetLast10Articles();
         ArticalDTO GetArticleByID(int id);
+        int UpNumberOfClick(int id);
         List<ArticalDTO> GetArticlesByNumberOfClick();
     }
 }

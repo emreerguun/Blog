@@ -69,7 +69,8 @@ namespace Blog.BLL.Concrete
             List<ArticalDTO> articles = new List<ArticalDTO>();
             foreach (var article in articleList)
             {
-                articles.Add(new ArticalDTO() { ArticleID = article.ArticleID, Title = article.Title, Content = article.Content, Description = article.Description, NumberOfClick = article.NumberOfClick, CategoryID = article.CategoryID });
+                Category category = categoryRepository.GetCategoryByID(article.CategoryID);
+                articles.Add(new ArticalDTO() { ArticleID = article.ArticleID, Title = article.Title, Content = article.Content, Description = article.Description, NumberOfClick = article.NumberOfClick, CategoryName = category.Name, CategoryID = article.CategoryID, ImagePath = article.ImagePath });
             }
             return articles;
         }
@@ -80,7 +81,8 @@ namespace Blog.BLL.Concrete
             List<ArticalDTO> articles = new List<ArticalDTO>();
             foreach (var article in articleList)
             {
-                articles.Add(new ArticalDTO() { ArticleID = article.ArticleID, Title = article.Title, Content = article.Content, Description = article.Description, NumberOfClick = article.NumberOfClick, CategoryID = article.CategoryID , ImagePath=article.ImagePath});
+                Category category = categoryRepository.GetCategoryByID(article.CategoryID);
+                articles.Add(new ArticalDTO() { ArticleID = article.ArticleID, Title = article.Title, Content = article.Content, Description = article.Description, NumberOfClick = article.NumberOfClick, CategoryName = category.Name, CategoryID = article.CategoryID, ImagePath = article.ImagePath });
             }
             return articles;
         }
@@ -92,7 +94,7 @@ namespace Blog.BLL.Concrete
             foreach (var article in articleList)
             {
                 Category category = categoryRepository.GetCategoryByID(article.CategoryID);
-                articles.Add(new ArticalDTO() { ArticleID = article.ArticleID, Title = article.Title, Content = article.Content, Description = article.Description, NumberOfClick = article.NumberOfClick, CategoryName = category.Name, CategoryID = article.CategoryID, ImagePath = article.ImagePath });
+                articles.Add(new ArticalDTO() { ArticleID = article.ArticleID, Title = article.Title, Content = article.Content, Description = article.Description, NumberOfClick = article.NumberOfClick, CategoryName = category.Name, CategoryID = article.CategoryID, ImagePath = article.ImagePath,Date=article.Date });
             }
             return articles;
         }
@@ -110,6 +112,17 @@ namespace Blog.BLL.Concrete
                
             }
             return repository.UpdateArticle(article);
+        }
+
+        public int UpNumberOfClick(int id)
+        {
+            Article article = repository.GetArticleByID(id);
+            if (article!=null)
+            {
+                repository.UpNumberOfClick(article);
+                return 1;
+            }
+            else return 0;
         }
     }
 }

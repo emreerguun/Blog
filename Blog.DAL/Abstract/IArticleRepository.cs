@@ -18,5 +18,6 @@ namespace Blog.DAL.Abstract
         List<Article> GetLast10Articles();
         Article GetArticleByID(int id);
         List<Article> GetArticlesByNumberOfClick();
+        int UpNumberOfClick(Article entity);
     }
 }
